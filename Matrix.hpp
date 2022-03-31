@@ -1,0 +1,78 @@
+#ifndef MATRIX_INCLUDED
+#define MATRIX_INCLUDED
+
+#include <string>
+#include <vector>
+
+
+namespace zich{
+
+    class Matrix{
+
+        private:
+            int rows;
+            int cols;
+            std::vector<double> matrix;
+
+        public:
+            
+            // constructor
+            Matrix(){}
+            Matrix(std::vector<double> mat, int rows, int cols){
+                this->rows = rows;
+                this->cols = cols;
+                this->matrix = mat;
+            }
+
+            // unary operators
+            Matrix& operator+();
+            Matrix& operator-();
+
+            // binary operators
+
+            Matrix& operator+(const Matrix& mat2);
+            Matrix& operator-(const Matrix& mat2);
+            Matrix& operator+=(const Matrix& mat2);
+            Matrix& operator-=(const Matrix& mat2);
+
+            // compare operators
+
+            friend bool operator== (const Matrix& c1, const Matrix& c2);
+            friend bool operator!= (const Matrix& c1, const Matrix& c2);
+
+            friend bool operator< (const Matrix& c1, const Matrix& c2);
+            friend bool operator> (const Matrix& c1, const Matrix& c2);
+
+            friend bool operator<= (const Matrix& c1, const Matrix& c2);
+            friend bool operator>= (const Matrix& c1, const Matrix& c2);
+
+            // increasing and decreasing operators
+
+            Matrix& operator++();
+            Matrix& operator--();
+
+            // multiplication operators
+
+            friend Matrix operator*(const Matrix& mat, int value);
+            friend Matrix operator*(int value, const Matrix& mat);
+            Matrix operator*=(const int& mul);
+            Matrix operator*(const Matrix& mat2);
+            Matrix operator*=(const Matrix& mat2);
+
+            // output and input operators
+
+            friend std::ostream &operator<<(std::ostream &output, const Matrix& mat );
+            friend std::istream &operator>>(std::istream &input, Matrix& mat);
+
+
+        
+    };
+
+
+
+
+}
+
+
+
+#endif
