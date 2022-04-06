@@ -5,10 +5,22 @@ using namespace zich;
 using namespace std;
 
 namespace zich{
-    
+
         // unary operators
         Matrix& Matrix::operator+(){return *this;}
-        Matrix& Matrix::operator-(){return *this;}
+
+        Matrix Matrix::operator-(){
+            
+            vector<double> arr;     // the vector of the new matrix
+            // initialize the vector with the negative values of this.matrix
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                arr.push_back(-1 * (this->matrix.at(i)));
+            }
+            // create a new object of type Matrix and return it
+            Matrix new_matrix{arr, this->rows, this->cols};
+            return new_matrix;
+        }
 
         // binary operators
 
@@ -51,7 +63,20 @@ namespace zich{
 
         // output and input operators
 
-        ostream &operator<<( ostream &output, const Matrix& mat ){
+        ostream& operator<<(ostream &output, const Matrix& mat ){
+
+            size_t index = 0;
+            cout << mat.matrix.size() << " | " << mat.matrix[2] << endl;
+            for (size_t i = 0; i < mat.rows; i++)
+            {
+                output << "[ ";
+                for (size_t j = 0; j < mat.cols; j++)
+                {
+                    output << mat.matrix[index] << " ";
+                    index++;
+                }
+                output << "]\n";
+            }
             return output;
         }
         istream &operator>>(istream &input, Matrix& mat){
