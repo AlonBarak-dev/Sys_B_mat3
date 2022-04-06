@@ -28,7 +28,7 @@ int main() {
             [0 1 0]
             [0 0 1]*/
 
-  cout << (-(a)) << endl;
+  cout << (-a) << endl;
   /* prints [-1 0 0]
             [0 -1 0]
             [0 0 -1]*/
