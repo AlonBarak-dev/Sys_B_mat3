@@ -32,6 +32,8 @@ int main() {
   /* prints [-1 0 0]
             [0 -1 0]
             [0 0 -1]*/
+  cout << (a+3) << endl;
+  cout << (a-1) << endl;
   cout << (3*a) << endl;
   /* prints [3 0 0]
             [0 3 0]

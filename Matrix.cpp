@@ -7,7 +7,18 @@ using namespace std;
 namespace zich{
 
         // unary operators
-        Matrix& Matrix::operator+(){return *this;}
+        Matrix& Matrix::operator+(){
+            
+            vector<double> arr;     // the vector of the new matrix
+            // initialize the vector with the negative values of this.matrix
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                arr.push_back(1 * (this->matrix.at(i)));
+            }
+            // create a new object of type Matrix and return it
+            Matrix new_matrix{arr, this->rows, this->cols};
+            return new_matrix;
+        }
 
         Matrix Matrix::operator-(){
             
@@ -24,10 +35,118 @@ namespace zich{
 
         // binary operators
 
-        Matrix& Matrix::operator+(const Matrix& mat2){return *this;}
-        Matrix& Matrix::operator-(const Matrix& mat2){return *this;}
-        Matrix& Matrix::operator+=(const Matrix& mat2){return *this;}
-        Matrix& Matrix::operator-=(const Matrix& mat2){return *this;}
+        Matrix Matrix::operator+(const Matrix& mat2){
+
+            // create a new object of type Matrix 
+            Matrix new_matrix{this->matrix, this->rows, this->cols};
+            // operate += on the new matrix
+            new_matrix += mat2;
+            return new_matrix;
+        }
+        
+        
+        Matrix Matrix::operator-(const Matrix& mat2){
+            // create a new object of type Matrix 
+            Matrix new_matrix{this->matrix, this->rows, this->cols};
+            // operate += on the new matrix
+            new_matrix -= mat2;
+            return new_matrix;
+        }
+
+        Matrix& Matrix::operator+=(const Matrix& mat2){
+            if (this->cols != mat2.cols || this->rows != mat2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            // initialize the vector with the 
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                this->matrix.at(i) += mat2.matrix.at(i);
+            }
+            
+            return *this;
+        }
+        Matrix& Matrix::operator-=(const Matrix& mat2){
+            if (this->cols != mat2.cols || this->rows != mat2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            // initialize the vector with the 
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                this->matrix.at(i) -= mat2.matrix.at(i);
+            }
+            return *this;
+        }
+
+        Matrix Matrix::operator+(const double num){
+            vector<double> arr;     // the vector of the new matrix
+            // initialize the vector with the 
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                arr.push_back(num + (this->matrix.at(i)));
+            }
+            // create a new object of type Matrix and return it
+            Matrix new_matrix{arr, this->rows, this->cols};
+            return new_matrix;
+        }
+
+        Matrix Matrix::operator-(const double num){
+            vector<double> arr;     // the vector of the new matrix
+            // initialize the vector with the negative values of this.matrix
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                arr.push_back((this->matrix.at(i)) - num);
+            }
+            // create a new object of type Matrix and return it
+            Matrix new_matrix{arr, this->rows, this->cols};
+            return new_matrix;
+        }
+
+        Matrix& Matrix::operator+=(const double num){
+             // initialize the vector with the 
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                this->matrix.at(i) += num;      // adds to each element 
+            }
+            return *this;
+        }
+
+        Matrix& Matrix::operator-=(const double num){
+             // initialize the vector with the 
+            for (size_t i = 0; i < this->matrix.size(); i++)
+            {
+                this->matrix.at(i) -= num;      // adds to each element 
+            }
+            return *this;
+        }
+
+
+        Matrix operator+(const double num, const Matrix& mat){
+            vector<double> arr;     // the vector of the new matrix
+            // initialize the vector with the 
+            for (size_t i = 0; i < mat.matrix.size(); i++)
+            {
+                arr.push_back(num + (mat.matrix.at(i)));
+            }
+            // create a new object of type Matrix and return it
+            Matrix new_matrix{arr, mat.rows, mat.cols};
+            return new_matrix;
+        }
+
+        Matrix operator-(const double num, const Matrix& mat){
+            vector<double> arr;     // the vector of the new matrix
+            // initialize the vector with the 
+            for (size_t i = 0; i < mat.matrix.size(); i++)
+            {
+                arr.push_back(num - (mat.matrix.at(i)));
+            }
+            // create a new object of type Matrix and return it
+            Matrix new_matrix{arr, mat.rows, mat.cols};
+            return new_matrix;
+        }
 
         // comparisions operators
 
@@ -70,6 +189,7 @@ namespace zich{
             for (size_t i = 0; i < mat.rows; i++)
             {
                 output << "[ ";
+                
                 for (size_t j = 0; j < mat.cols; j++)
                 {
                     output << mat.matrix[index] << " ";

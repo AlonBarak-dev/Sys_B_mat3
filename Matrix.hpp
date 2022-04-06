@@ -31,16 +31,21 @@ namespace zich{
             }
 
             // unary operators
-            Matrix& operator+();
-            Matrix operator-();
+            Matrix& operator+();    // done
+            Matrix operator-();     // done
 
             // binary operators
 
-            Matrix& operator+(const Matrix& mat2);
-            Matrix& operator-(const Matrix& mat2);
-            Matrix& operator+=(const Matrix& mat2);
-            Matrix& operator-=(const Matrix& mat2);
-
+            Matrix operator+(const Matrix& mat2);       // done
+            Matrix operator-(const Matrix& mat2);       // done
+            Matrix& operator+=(const Matrix& mat2);     // done
+            Matrix& operator-=(const Matrix& mat2);     // done
+            Matrix& operator+=(const double num);       // done
+            Matrix& operator-=(const double num);       // done
+            Matrix operator+(const double num);         // done
+            friend Matrix operator+(const double num, const Matrix& mat);       // done
+            friend Matrix operator-(const double num, const Matrix& mat);       // done
+            Matrix operator-(const double num);         // done
             // compare operators
 
             friend bool operator== (const Matrix& c1, const Matrix& c2);
@@ -55,7 +60,9 @@ namespace zich{
             // increasing and decreasing operators
 
             Matrix& operator++();
+            Matrix& operator++(int);
             Matrix& operator--();
+            Matrix& operator--(int);
 
             // multiplication operators
 
