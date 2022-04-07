@@ -31,7 +31,7 @@ namespace zich{
             }
 
             // unary operators
-            Matrix& operator+();    // done
+            Matrix operator+();    // done
             Matrix operator-();     // done
 
             // binary operators
@@ -48,21 +48,21 @@ namespace zich{
             Matrix operator-(const double num);         // done
             // compare operators
 
-            friend bool operator== (const Matrix& c1, const Matrix& c2);
-            friend bool operator!= (const Matrix& c1, const Matrix& c2);
+            friend bool operator== (const Matrix& c1, const Matrix& c2);    //done
+            friend bool operator!= (const Matrix& c1, const Matrix& c2);    //done
 
-            friend bool operator< (const Matrix& c1, const Matrix& c2);
-            friend bool operator> (const Matrix& c1, const Matrix& c2);
+            friend bool operator< (const Matrix& c1, const Matrix& c2);     //done
+            friend bool operator> (const Matrix& c1, const Matrix& c2);     //done
 
-            friend bool operator<= (const Matrix& c1, const Matrix& c2);
-            friend bool operator>= (const Matrix& c1, const Matrix& c2);
+            friend bool operator<= (const Matrix& c1, const Matrix& c2);    //done
+            friend bool operator>= (const Matrix& c1, const Matrix& c2);    //done
 
             // increasing and decreasing operators
 
-            Matrix& operator++();
-            Matrix& operator++(int);
-            Matrix& operator--();
-            Matrix& operator--(int);
+            Matrix& operator++();       //done
+            Matrix operator++(int);     //done
+            Matrix& operator--();       //done
+            Matrix operator--(int);     //done
 
             // multiplication operators
 
@@ -77,7 +77,8 @@ namespace zich{
             friend std::ostream &operator<<(std::ostream &output, const Matrix& mat );
             friend std::istream &operator>>(std::istream &input, Matrix& mat);
 
-
+            // auxiliaries method
+            friend double sum(const Matrix& mat);
         
     };
 

@@ -15,9 +15,9 @@ TEST_CASE("Unary operators"){
 
     // check the unary - operator
     CHECK(mat1 == mat2);
-    -mat1;    
+    mat1 -= 1;    
     CHECK(mat1 != mat2);
-    -mat2;
+    mat2 -= 1;
     CHECK(mat1 == mat2);
 
 }
@@ -37,6 +37,7 @@ TEST_CASE("Binary add & sub operators"){
 
     vector<double> arr1_2 = {7, 9, 8, 14};
     Matrix mat12{arr1_2, 2, 2};
+    mat1 += mat2;
     // after the above action, these matrixes ahould be equal
     CHECK(mat1 == mat12);
 
@@ -48,7 +49,7 @@ TEST_CASE("Binary add & sub operators"){
     CHECK(mat1 == mat12);
 
 
-    mat12 - mat2;
+    mat12 -= mat2;
     Matrix mat12_2{arr1, 2, 2};
     // should be equal
     CHECK(mat12 == mat12_2);

@@ -7,7 +7,7 @@ using namespace std;
 namespace zich{
 
         // unary operators
-        Matrix& Matrix::operator+(){
+        Matrix Matrix::operator+(){
             
             vector<double> arr;     // the vector of the new matrix
             // initialize the vector with the negative values of this.matrix
@@ -26,7 +26,13 @@ namespace zich{
             // initialize the vector with the negative values of this.matrix
             for (size_t i = 0; i < this->matrix.size(); i++)
             {
-                arr.push_back(-1 * (this->matrix.at(i)));
+                if (this->matrix.at(i) != 0)
+                {
+                    arr.push_back(-1 * (this->matrix.at(i)));
+                }
+                else{
+                    arr.push_back(0);
+                }
             }
             // create a new object of type Matrix and return it
             Matrix new_matrix{arr, this->rows, this->cols};
@@ -148,21 +154,97 @@ namespace zich{
             return new_matrix;
         }
 
+
         // comparisions operators
 
-        bool operator== (const Matrix& c1, const Matrix& c2){return true;}
-        bool operator!= (const Matrix& c1, const Matrix& c2){return true;}
+        double sum(const Matrix& mat){
+            // auxiliary method that claculate the sum of a matrix
+            double sum = 0;
+            for (size_t i = 0; i < mat.matrix.size(); i++)
+            {
+                sum += mat.matrix.at(i);
+            }
+            return sum;
+        }
 
-        bool operator< (const Matrix& c1, const Matrix& c2){return true;}
-        bool operator> (const Matrix& c1, const Matrix& c2){return true;}
+        bool operator== (const Matrix& c1, const Matrix& c2){
+            if (c1.cols != c2.cols || c1.rows != c2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            for(size_t i = 0; i < c1.matrix.size();i++){
+                if (c1.matrix.at(i) != c2.matrix.at(i))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        bool operator!= (const Matrix& c1, const Matrix& c2){
+            if (c1.cols != c2.cols || c1.rows != c2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            return !(c1 == c2);
+        }
 
-        bool operator<= (const Matrix& c1, const Matrix& c2){return true;}
-        bool operator>= (const Matrix& c1, const Matrix& c2){return true;}
+        bool operator< (const Matrix& c1, const Matrix& c2){
+            if (c1.cols != c2.cols || c1.rows != c2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            return sum(c1) < sum(c2);
+        }
+        bool operator> (const Matrix& c1, const Matrix& c2){
+            if (c1.cols != c2.cols || c1.rows != c2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            return sum(c1) > sum(c2);
+        }
+
+        bool operator<= (const Matrix& c1, const Matrix& c2){
+            if (c1.cols != c2.cols || c1.rows != c2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            return sum(c1) < sum(c2) || c1 == c2;
+        }
+        bool operator>= (const Matrix& c1, const Matrix& c2){
+            if (c1.cols != c2.cols || c1.rows != c2.rows)
+            {
+                // the matrixes are not from the same dimensions
+                throw runtime_error("operator + is only valid for same dimensions matrixes");
+            }
+            return sum(c1) > sum(c2) || c1 == c2;
+        }
 
         // increasing and decreasing operators
 
-        Matrix& Matrix::operator++(){return *this;}
-        Matrix& Matrix::operator--(){return *this;}
+        Matrix& Matrix::operator++(){
+            return (*this += 1);
+        }
+
+        Matrix Matrix::operator++(int){
+            Matrix new_matrix = Matrix{this->matrix, this->rows, this->cols};
+            new_matrix += 1;
+            return new_matrix;
+        }
+
+        Matrix Matrix::operator--(int){
+            Matrix new_matrix = Matrix{this->matrix, this->rows, this->cols};
+            new_matrix -= 1;
+            return new_matrix;
+        }
+
+        Matrix& Matrix::operator--(){
+            return (*this -= 1);
+        }
 
         // multipication operators
 
@@ -185,7 +267,6 @@ namespace zich{
         ostream& operator<<(ostream &output, const Matrix& mat ){
 
             size_t index = 0;
-            cout << mat.matrix.size() << " | " << mat.matrix[2] << endl;
             for (size_t i = 0; i < mat.rows; i++)
             {
                 output << "[ ";
