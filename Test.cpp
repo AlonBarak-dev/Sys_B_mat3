@@ -96,11 +96,9 @@ TEST_CASE("Increasing and Decreasing operators"){
     ++mat1;
     CHECK(mat1 == mat2);
 
-    ++mat2;
-    CHECK(mat1 != mat2);
-    CHECK(mat1 < mat2);
-
-    --mat2;
+    
+    CHECK(mat1 != mat2++);
+    CHECK(mat1 < mat2++);
     CHECK(mat1 == mat2);
 }
 
