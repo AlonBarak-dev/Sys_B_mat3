@@ -70,7 +70,7 @@ namespace zich{
             friend Matrix operator*(const double& value, const Matrix& mat);   // done
             Matrix&operator*=(const double& mul);       // done
             Matrix& operator*=(const Matrix& mat2);     // done
-            Matrix operator*(const Matrix& mat2);       // done
+            Matrix operator*(const Matrix& mat2) const;       // done
 
             // output and input operators
 

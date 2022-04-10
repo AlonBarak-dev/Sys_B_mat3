@@ -226,23 +226,23 @@ namespace zich{
 
         // increasing and decreasing operators
 
-        Matrix& Matrix::operator++(){
+        Matrix& Matrix::operator++(){   // prefix
             return (*this += 1);
         }
 
-        Matrix Matrix::operator++(int){
-            Matrix new_matrix = Matrix{this->matrix, this->rows, this->cols};
-            new_matrix += 1;
-            return new_matrix;
+        Matrix Matrix::operator++(int){     // postfix
+            Matrix new_matrix = *this;   //copy
+            ++*this;
+            return new_matrix;  // return the copy
         }
 
-        Matrix Matrix::operator--(int){
-            Matrix new_matrix = Matrix{this->matrix, this->rows, this->cols};
-            new_matrix -= 1;
-            return new_matrix;
+        Matrix Matrix::operator--(int){     // postfix
+            Matrix new_matrix = *this;  // copy
+            --*this;
+            return new_matrix;  //return the copy
         }
 
-        Matrix& Matrix::operator--(){
+        Matrix& Matrix::operator--(){      // prefix
             return (*this -= 1);
         }
 
@@ -258,7 +258,7 @@ namespace zich{
 
             for (size_t i = 0; i < mat1.cols; i++)
             {
-                sum += mat1.matrix.at(i + mat1.cols*row) * mat2.matrix.at(col + mat2.cols*(int)i);
+                sum += mat1.matrix.at(i + size_t(mat1.cols*row)) * mat2.matrix.at(size_t(col) + size_t(mat2.cols)*i);
             }
             return sum;
         }
@@ -304,7 +304,7 @@ namespace zich{
         }
         
         
-        Matrix Matrix::operator*(const Matrix& mat2){
+        Matrix Matrix::operator*(const Matrix& mat2) const{
             // matrix * matrix
 
             if(this->cols != mat2.rows){    // dimensions check:
@@ -335,14 +335,22 @@ namespace zich{
             size_t index = 0;
             for (size_t i = 0; i < mat.rows; i++)
             {
-                output << "[ ";
-                
+                output << "[";
                 for (size_t j = 0; j < mat.cols; j++)
                 {
-                    output << mat.matrix[index] << " ";
+                    output << mat.matrix[index];
+                    if (j != mat.cols-1)
+                    {
+                        output << " ";
+                    }
+                    
                     index++;
                 }
-                output << "]\n";
+                output << "]";
+                if (i != mat.rows -1)
+                {
+                    output << "\n";
+                }
             }
             return output;
         }

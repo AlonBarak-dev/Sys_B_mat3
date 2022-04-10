@@ -97,9 +97,9 @@ TEST_CASE("Increasing and Decreasing operators"){
     CHECK(mat1 == mat2);
 
     
-    CHECK(mat1 != mat2++);
+    CHECK(mat1 == mat2++);
     CHECK(mat1 < mat2++);
-    CHECK(mat1 == mat2);
+    CHECK(mat1 <= mat2);
 }
 
 TEST_CASE("Multiplication operators"){
