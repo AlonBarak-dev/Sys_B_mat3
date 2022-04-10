@@ -1,8 +1,11 @@
 #include "Matrix.hpp"
 #include <string>
+#include <iostream>
 
 using namespace zich;
 using namespace std;
+
+Matrix parse(string const& str, char delim);
 
 namespace zich{
 
@@ -171,7 +174,7 @@ namespace zich{
             if (c1.cols != c2.cols || c1.rows != c2.rows)
             {
                 // the matrixes are not from the same dimensions
-                throw runtime_error("operator + is only valid for same dimensions matrixes");
+                throw runtime_error("operator == is only valid for same dimensions matrixes");
             }
             for(size_t i = 0; i < c1.matrix.size();i++){
                 if (c1.matrix.at(i) != c2.matrix.at(i))
@@ -185,7 +188,7 @@ namespace zich{
             if (c1.cols != c2.cols || c1.rows != c2.rows)
             {
                 // the matrixes are not from the same dimensions
-                throw runtime_error("operator + is only valid for same dimensions matrixes");
+                throw runtime_error("operator != is only valid for same dimensions matrixes");
             }
             return !(c1 == c2);
         }
@@ -194,7 +197,7 @@ namespace zich{
             if (c1.cols != c2.cols || c1.rows != c2.rows)
             {
                 // the matrixes are not from the same dimensions
-                throw runtime_error("operator + is only valid for same dimensions matrixes");
+                throw runtime_error("operator < is only valid for same dimensions matrixes");
             }
             return sum(c1) < sum(c2);
         }
@@ -202,7 +205,7 @@ namespace zich{
             if (c1.cols != c2.cols || c1.rows != c2.rows)
             {
                 // the matrixes are not from the same dimensions
-                throw runtime_error("operator + is only valid for same dimensions matrixes");
+                throw runtime_error("operator > is only valid for same dimensions matrixes");
             }
             return sum(c1) > sum(c2);
         }
@@ -211,7 +214,7 @@ namespace zich{
             if (c1.cols != c2.cols || c1.rows != c2.rows)
             {
                 // the matrixes are not from the same dimensions
-                throw runtime_error("operator + is only valid for same dimensions matrixes");
+                throw runtime_error("operator <= is only valid for same dimensions matrixes");
             }
             return sum(c1) < sum(c2) || c1 == c2;
         }
@@ -219,7 +222,7 @@ namespace zich{
             if (c1.cols != c2.cols || c1.rows != c2.rows)
             {
                 // the matrixes are not from the same dimensions
-                throw runtime_error("operator + is only valid for same dimensions matrixes");
+                throw runtime_error("operator >= is only valid for same dimensions matrixes");
             }
             return sum(c1) > sum(c2) || c1 == c2;
         }
@@ -354,7 +357,78 @@ namespace zich{
             }
             return output;
         }
+
         istream &operator>>(istream &input, Matrix& mat){
+            
+            string str;
+            getline(input, str);
+            mat = parse(str, ',');
             return input;
         }
 }
+
+Matrix parse(string const& str, char delim){
+
+            vector<string> vec;
+            vector<string> tmp;
+            vector<double> ret_vector;
+            int rows = 0;
+            int cols = 0;
+            size_t start = 0;
+            size_t end = 0;
+        
+            while ((start = str.find_first_not_of(delim, end)) != std::string::npos)
+            {
+                end = str.find(delim, start);
+                vec.push_back(str.substr(start, end - start));
+                rows++;
+            }
+
+            for(size_t i = 0; i < vec.size(); i++){
+                if(i == 0){
+                    // first str have different validations check:
+                    if (vec.at(i).at(0) != '[' || vec.at(i).at(vec.at(i).size()-1) != ']')
+                    {
+                        // first char should be '[', throw exception,
+                        // last char should be ']', throw exception
+                        throw runtime_error("Input isn't valid!");
+                    }
+                    // delete the uneeded chars from ths string
+                    vec.at(i).erase(0,1);
+                    vec.at(i).erase(vec.at(i).size()-1,vec.at(i).size());
+                }
+                else{
+                    if (vec.at(i).at(0) != ' ' || vec.at(i).at(1) != '['  || vec.at(i).at(vec.at(i).size()-1) != ']')
+                    {
+                        // first char should be '[', throw exception,
+                        // last char should be ']', throw exception
+                        throw runtime_error("Input isn't valid!");
+                    }
+                    // delete the uneeded chars from ths string
+                    vec.at(i).erase(0,2);
+                    vec.at(i).erase(vec.at(i).size()-1,vec.at(i).size());
+                }
+                // split the string into vector base on spaces -> valid input should result in vector of "doubles"
+                end = 0;
+                delim = ' ';
+                tmp.clear();
+                while ((start = vec.at(i).find_first_not_of(delim, end)) != std::string::npos)
+                {
+                    end = vec.at(i).find(delim, start);
+                    tmp.push_back(vec.at(i).substr(start, end - start));
+                }
+                cols = tmp.size();
+                for (string const& s: tmp)
+                {
+                    // check if each double is seperated with exactly one " "
+                    try{
+                        ret_vector.push_back(stod(s));
+                    }
+                    catch(exception e){
+                        throw runtime_error("input is not valid!");
+                    }
+                }
+            }
+
+            return zich::Matrix{ret_vector, rows, cols};
+        }

@@ -16,7 +16,7 @@ namespace zich{
 
         public:
             
-            // constructor
+            // constructor & destructor
             Matrix(){}
             Matrix(std::vector<double> mat, int rows, int cols){
                 // throw error if the size of the vector isn't matching the rows and columns size
@@ -29,6 +29,7 @@ namespace zich{
                 this->cols = cols;
                 this->matrix = mat;
             }
+            ~Matrix() {}
 
             // unary operators
             Matrix operator+();    // done
