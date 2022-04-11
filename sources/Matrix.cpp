@@ -374,7 +374,15 @@ Matrix parse(string const& str, char delim){
             int cols = 0;
             size_t start = 0;
             size_t end = 0;
-        
+
+            if (str.at(0) != '[' || str.at(str.size()-1) != ']')
+            {
+                // first char should be '[', throw exception,
+                // last char should be ']', throw exception
+                throw runtime_error("Input isn't valid!");
+            }
+            
+
             while ((start = str.find_first_not_of(delim, end)) != std::string::npos)
             {
                 end = str.find(delim, start);
