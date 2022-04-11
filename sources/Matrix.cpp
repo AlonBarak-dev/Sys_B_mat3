@@ -289,8 +289,6 @@ namespace zich{
                 new_mat.matrix.at(i) = mat.matrix.at(i) * value;
             }
             return new_mat;
-
-
         }
         
         
