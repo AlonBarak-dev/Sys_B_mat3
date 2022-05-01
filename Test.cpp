@@ -6,7 +6,9 @@ using namespace zich;
 
 TEST_CASE("Unary operators"){
     // init two matrix
-    vector<double> arr = {1,0,0,0,1,0,0,0,1};
+    vector<double> arr = {1,0,0,
+                          0,1,0,
+                          0,0,1};
     Matrix mat1{arr, 3, 3};
     Matrix mat2(arr, 3, 3);
 
@@ -25,9 +27,15 @@ TEST_CASE("Unary operators"){
 TEST_CASE("Binary add & sub operators"){
 
     // init matrix
-    vector<double> arr1 = {2, 3, 6, 9};
-    vector<double> arr2 = {5, 6, 2, 5};
-    vector<double> arr3 = {1,2,3 , 4,5,6 , 6,7,8};
+    vector<double> arr1 = {2, 3,
+                           6, 9};
+
+    vector<double> arr2 = {5, 6,
+                           2, 5};
+
+    vector<double> arr3 = {1,2,3,
+                           4,5,6,
+                           6,7,8};
     Matrix mat1{arr1,2,2};
     Matrix mat2{arr2, 2,2};
     Matrix mat3{arr3, 3, 3};
@@ -35,7 +43,9 @@ TEST_CASE("Binary add & sub operators"){
     // addition on 2 matrixes with the same dimensions shouldn't throw 
     CHECK_NOTHROW(mat1+mat2);  
 
-    vector<double> arr1_2 = {7, 9, 8, 14};
+    vector<double> arr1_2 = {7, 9,
+                             8, 14};
+
     Matrix mat12{arr1_2, 2, 2};
     mat1 += mat2;
     // after the above action, these matrixes ahould be equal
@@ -57,10 +67,20 @@ TEST_CASE("Binary add & sub operators"){
 
 TEST_CASE("Compare operators"){
     // init matrixes
-    vector<double> arr1 = {2.2, 3, 6, 9.1};
-    vector<double> arr2 = {5, 6.5, -2, 5};
-    vector<double> arr3 = {1,2.4,-3 , -4,5,6 , 6,7.5,8};
-    vector<double> arr4 = {-7,15,2, 45,-29,8, 0,4,12};
+    vector<double> arr1 = {2.2, 3,
+                           6, 9.1};
+
+    vector<double> arr2 = {5, 6.5,
+                          -2, 5};
+
+    vector<double> arr3 = {1,2.4,-3,
+                          -4,5,6,
+                           6,7.5,8};
+
+    vector<double> arr4 = {-7,15,2,
+                           45,-29,8,
+                           0,4,12};
+
     Matrix mat1{arr1,2,2};
     Matrix mat2{arr2, 2,2};
     Matrix mat3{arr3, 3, 3};
@@ -87,8 +107,16 @@ TEST_CASE("Compare operators"){
 
 TEST_CASE("Increasing and Decreasing operators"){
     // init matrixes
-    vector<double> arr1 = {0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0};
-    vector<double> arr2 = {1,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1};
+    vector<double> arr1 = {0,0,0,0,
+                           0,0,0,0,
+                           0,0,0,0,
+                           0,0,0,0};
+
+    vector<double> arr2 = {1,1,1,1,
+                           1,1,1,1,
+                           1,1,1,1,
+                           1,1,1,1};
+
     Matrix mat1{arr1, 4, 4};
     Matrix mat2{arr2, 4, 4};
 
@@ -104,11 +132,23 @@ TEST_CASE("Increasing and Decreasing operators"){
 
 TEST_CASE("Multiplication operators"){
     // init matrixes
-    vector<double> arr1 = {2.2, 3, 6, 9.1};
-    vector<double> arr2 = {5, 6.5, -2, 5};
-    vector<double> arr12 = {5, 29.3, 11.8, 84.5};
-    vector<double> arr3 = {1,2.4,-3 , -4,5,6 , 6,7.5,8};
-    vector<double> arr4 = {-7,15,2, 45,-29,8, 0,4,12};
+    vector<double> arr1 = {2.2, 3,
+                           6, 9.1};
+
+    vector<double> arr2 = {5, 6.5,
+                          -2, 5};
+
+    vector<double> arr12 = {5, 29.3,
+                            11.8, 84.5};
+
+    vector<double> arr3 = {1,2.4,-3,
+                          -4,5,6,
+                           6,7.5,8};
+
+    vector<double> arr4 = {-7,15,2,
+                           45,-29,8,
+                            0,4,12};
+
     Matrix mat1{arr1,2,2};
     Matrix mat2{arr2, 2,2};
     Matrix mat12{arr12, 2,2};
