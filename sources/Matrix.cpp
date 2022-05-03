@@ -184,61 +184,61 @@ namespace zich{
         return sum;
     }
 
-    bool operator== (const Matrix& c1, const Matrix& c2){
-        if (c1.cols != c2.cols || c1.rows != c2.rows)
+    bool operator== (const Matrix& mat1, const Matrix& mat2){
+        if (mat1.cols != mat2.cols || mat1.rows != mat2.rows)
         {
             // the matrixes are not from the same dimensions
             throw runtime_error("operator == is only valid for same dimensions matrixes");
         }
-        for(size_t i = 0; i < c1.matrix.size();i++){
-            if (c1.matrix.at(i) != c2.matrix.at(i))
+        for(size_t i = 0; i < mat1.matrix.size();i++){
+            if (mat1.matrix.at(i) != mat2.matrix.at(i))
             {
                 return false;
             }
         }
         return true;
     }
-    bool operator!= (const Matrix& c1, const Matrix& c2){
-        if (c1.cols != c2.cols || c1.rows != c2.rows)
+    bool operator!= (const Matrix& mat1, const Matrix& mat2){
+        if (mat1.cols != mat2.cols || mat1.rows != mat2.rows)
         {
             // the matrixes are not from the same dimensions
             throw runtime_error("operator != is only valid for same dimensions matrixes");
         }
-        return !(c1 == c2);
+        return !(mat1 == mat2);
     }
 
-    bool operator< (const Matrix& c1, const Matrix& c2){
-        if (c1.cols != c2.cols || c1.rows != c2.rows)
+    bool operator< (const Matrix& mat1, const Matrix& mat2){
+        if (mat1.cols != mat2.cols || mat1.rows != mat2.rows)
         {
             // the matrixes are not from the same dimensions
             throw runtime_error("operator < is only valid for same dimensions matrixes");
         }
-        return sum(c1) < sum(c2);
+        return sum(mat1) < sum(mat2);
     }
-    bool operator> (const Matrix& c1, const Matrix& c2){
-        if (c1.cols != c2.cols || c1.rows != c2.rows)
+    bool operator> (const Matrix& mat1, const Matrix& mat2){
+        if (mat1.cols != mat2.cols || mat1.rows != mat2.rows)
         {
             // the matrixes are not from the same dimensions
             throw runtime_error("operator > is only valid for same dimensions matrixes");
         }
-        return sum(c1) > sum(c2);
+        return sum(mat1) > sum(mat2);
     }
 
-    bool operator<= (const Matrix& c1, const Matrix& c2){
-        if (c1.cols != c2.cols || c1.rows != c2.rows)
+    bool operator<= (const Matrix& mat1, const Matrix& mat2){
+        if (mat1.cols != mat2.cols || mat1.rows != mat2.rows)
         {
             // the matrixes are not from the same dimensions
             throw runtime_error("operator <= is only valid for same dimensions matrixes");
         }
-        return sum(c1) < sum(c2) || c1 == c2;
+        return sum(mat1) < sum(mat2) || mat1 == mat2;
     }
-    bool operator>= (const Matrix& c1, const Matrix& c2){
-        if (c1.cols != c2.cols || c1.rows != c2.rows)
+    bool operator>= (const Matrix& mat1, const Matrix& mat2){
+        if (mat1.cols != mat2.cols || mat1.rows != mat2.rows)
         {
             // the matrixes are not from the same dimensions
             throw runtime_error("operator >= is only valid for same dimensions matrixes");
         }
-        return sum(c1) > sum(c2) || c1 == c2;
+        return sum(mat1) > sum(mat2) || mat1 == mat2;
     }
 
     // increasing and decreasing operators

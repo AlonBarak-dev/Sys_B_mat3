@@ -22,6 +22,9 @@ test: TestRunner.o StudentTest1.o StudentTest2.o StudentTest3.o $(OBJECTS)
 main: Main.o Matrix.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
+Matrix.o: sources/Matrix.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) --compile $< -o $@
+
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) --compile $< -o $@
 
